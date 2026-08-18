@@ -1,0 +1,11 @@
+{
+  "name": "sky-destroyer",
+  "version": "1.0.0",
+  "description": "WWII pseudo-3D rear-view arcade shooter — Il-2 vs Axis forces",
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/**/*.test.js",
+    "start": "npx --yes serve . -p 3000"
+  },
+  "devDependencies": {}
+}

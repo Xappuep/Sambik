@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ИЛ-2: Небесный удар</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <div id="stage">
+      <canvas id="game" width="256" height="240" aria-label="Игровое поле"></canvas>
+    </div>
+    <div id="touch" class="touch hidden-desktop">
+      <div class="dpad">
+        <button type="button" class="pad" data-touch="up" aria-label="Вверх">▲</button>
+        <div class="dpad-mid">
+          <button type="button" class="pad" data-touch="left" aria-label="Влево">◀</button>
+          <button type="button" class="pad" data-touch="down" aria-label="Вниз">▼</button>
+          <button type="button" class="pad" data-touch="right" aria-label="Вправо">▶</button>
+        </div>
+      </div>
+      <div class="actions">
+        <button type="button" class="fire" data-touch="fire" aria-label="Пушки">GUN</button>
+        <button type="button" class="rocket" data-touch="rocket" aria-label="Ракеты">ROCKET</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="boot-error" class="boot-error hidden">
+    <div class="boot-error-panel">
+      <h2>Не удалось запустить игру</h2>
+      <p id="boot-error-text"></p>
+      <p class="boot-error-hint">
+        <strong>Windows:</strong> запустите <code>start.bat</code><br>
+        <strong>Или в терминале:</strong> <code>npm start</code><br>
+        Затем откройте <a href="http://localhost:3000">http://localhost:3000</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      if (location.protocol !== 'file:') return;
+      function showFileProtocolError() {
+        var overlay = document.getElementById('boot-error');
+        var text = document.getElementById('boot-error-text');
+        if (!overlay || !text) return;
+        text.textContent =
+          'Игра использует ES modules и не запускается при открытии index.html напрямую (адрес начинается с file://). ' +
+          'Запустите локальный сервер через start.bat или команду npm start, затем откройте http://localhost:3000';
+        overlay.classList.remove('hidden');
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', showFileProtocolError);
+      } else {
+        showFileProtocolError();
+      }
+    })();
+  </script>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
